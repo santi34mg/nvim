@@ -8,6 +8,11 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+-- Some temporary remaps to get me used to vim
+vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<Down>", "<Nop>")
+vim.keymap.set("n", "<Left>", "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])

@@ -58,4 +58,5 @@ use {
         'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
 }
+use 'lervag/vimtex'
 end)

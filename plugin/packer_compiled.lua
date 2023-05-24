@@ -186,7 +186,7 @@ _G.packer_plugins = {
     url = "https://github.com/tpope/vim-fugitive"
   },
   vimtex = {
-    config = { "\27LJ\2\n¡\2\0\0\2\0\v\0\0216\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0'\1\b\0=\1\a\0006\0\0\0009\0\1\0'\1\n\0=\1\t\0K\0\1\0&--unique file:@pdf\\#src:@line@tex vimtex_view_general_options\bnvr\29vimtex_compiler_progname\24tex_comment_nospell\1\0\1\6_\r-xelatex$vimtex_compiler_latexmk_engines\fzathura\31vimtex_view_general_viewer\6g\bvim\0" },
+    config = { "\27LJ\2\n¶\1\0\0\2\0\b\0\r6\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0006\0\0\0009\0\1\0'\1\a\0=\1\6\0K\0\1\0\20-reuse-instance vimtex_view_zathura_options\1\0\1\6_\r-xelatex$vimtex_compiler_latexmk_engines\fzathura\23vimtex_view_viewer\6g\bvim\0" },
     loaded = false,
     needs_bufread = true,
     only_cond = false,

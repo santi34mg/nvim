@@ -1,5 +1,8 @@
 require("config.lazy")
 
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('pylsp')
+
 vim.opt.shiftwidth = 4
 vim.opt.clipboard = "unnamedplus"
 vim.opt.number = true

@@ -4,6 +4,22 @@ return {
     dependencies = {
       "mason-org/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
+      {
+        'j-hui/fidget.nvim',
+        tag = 'v1.4.0',
+        opts = {
+          progress = {
+            display = {
+              done_icon = '✓', -- Icon shown when all LSP progress tasks are complete
+            },
+          },
+          notification = {
+            window = {
+              winblend = 0, -- Background color opacity in the notification window
+            },
+          },
+        },
+      }
     },
     opts = {
       servers = {
@@ -21,19 +37,14 @@ return {
         clangd = {
           cmd = { "clangd" },
           filetypes = { "c", "cpp", "objc", "objcpp" },
-          -- root_dir = function(fname)
-          --   return vim.fs.dirname(vim.fs.find({'.git', 'compile_commands.json'}, {path = fname, upward = true})[1])
-          -- end,
-          -- capabilities = {
-          --   offsetEncoding = { "utf-8" }
-          -- },
         },
-        pyre = {
-          cmd = { 'pyre', 'server' },
+        pyright = {
+          cmd = { "pyright-langserver", "--stdio" },
           filetypes = { "python" },
-          root_dir = function(fname)
-            return vim.fs.dirname(vim.fs.find({'.git', '.pyre_configuration'}, {path = fname, upward = true})[1])
-          end,
+        },
+        rust_analyzer = {
+          cmd = { "rust-analyzer" },
+          filetypes = { "rust" },
         },
       }
     },
@@ -48,7 +59,7 @@ return {
         }
       })
       require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls", "clangd"}
+        ensure_installed = {"lua_ls", "clangd", "ts_ls", "rust_analyzer", "pyright", "zls"},
       })
       for server, config in pairs(opts.servers) do
 				vim.lsp.config(server, config)

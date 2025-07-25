@@ -1,11 +1,11 @@
 vim.keymap.set("n", "<leader>x", ":.lua<CR>")
 vim.keymap.set("v", "<leader>x", ":lua<CR>")
 
-vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
-vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
-vim.keymap.set('n', 'grr', vim.lsp.buf.references)
-vim.keymap.set('n', 'gri', vim.lsp.buf.implementation)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'grn', vim.lsp.buf.rename, { desc = 'LSP: Rename' })
+vim.keymap.set('n', 'gca', vim.lsp.buf.code_action, { desc = 'LSP: Code Actions' })
+vim.keymap.set('n', 'gR', vim.lsp.buf.references, { desc = 'LSP: References' })
+vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, { desc = 'LSP: Implementations' })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'LSP: Definitions' })
 
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")

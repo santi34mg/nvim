@@ -41,13 +41,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Enable highlighting search in progress
-vim.opt.incsearch = true
-
--- Ignore case for searches
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
 -- Diagnostic display inline
 vim.diagnostic.config({
   virtual_text = true,

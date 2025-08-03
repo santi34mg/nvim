@@ -8,11 +8,6 @@ return {
     },
     config = function()
       require('telescope').setup {
-        pickers = {
-          find_files = {
-            -- theme = 'dropdown'
-          }
-        },
         extensions = {
           fzf = {}
         }
@@ -21,7 +16,7 @@ return {
       require('telescope').load_extension('fzf')
 
       vim.keymap.set('n', '<leader>fd', require('telescope.builtin').find_files) -- [f]ind in [d]irectory
-      vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)  -- [f]ind [h]elp
+      vim.keymap.set('n', '<leader>fs', ":Telescop live_grep<CR>") -- [f]ile [s]earch
 
       -- [e]dit [n]eovim
       vim.keymap.set('n', '<leader>en', function()
@@ -30,14 +25,6 @@ return {
         }
       end)
 
-      -- [e]dit [p]ackages -> to find things in packages that I have installed
-      vim.keymap.set('n', '<leader>ep', function()
-        require('telescope.builtin').find_files {
-          cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy')
-        }
-      end)
-
-      require "config.telescope.multigrep".setup()
     end
   }
 }

@@ -1,56 +1,24 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.autoindent = true
-
-vim.o.swapfile = false
-
+vim.opt.swapfile = false
 vim.opt.undofile = true
-
 vim.opt.termguicolors = true
-
 vim.opt.cursorline = true
 vim.opt.nu = true
 vim.opt.rnu = true
-
-vim.opt.clipboard = 'unnamedplus'
-
 vim.opt.scrolloff = 8
+vim.opt.colorcolumn = "80"
 vim.opt.lazyredraw = true
-
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
-})
-vim.cmd("set completeopt+=noselect")
-
-vim.o.wrap = false
-
-vim.cmd(":hi statusline guibg=NONE")
-
-vim.o.winborder = "rounded"
-
+vim.opt.wrap = false
+vim.opt.winborder = "rounded"
 vim.diagnostic.config({
   virtual_text = true,
   underline = true
@@ -58,83 +26,68 @@ vim.diagnostic.config({
 
 vim.pack.add({
   { src = "https://github.com/echasnovski/mini.pick" },
-  { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer" },
   { src = "https://github.com/vague2k/vague.nvim" },
   { src = "https://github.com/folke/which-key.nvim" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+  { src = "https://github.com/Saghen/blink.cmp" },
 })
 
 vim.cmd("colorscheme vague")
+vim.cmd("set completeopt+=noselect")
+vim.cmd(":hi statusline guibg=NONE")
 
-require("mini.pick").setup()
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-tool-installer").setup({
-  ensure_installed = { "lua_ls", "stylua", "clangd", "ts_ls", "rust_analyzer", "pyright", "zls" },
-  auto_update = false,
-})
-
--- Stop error of undefined `vim` global
-vim.lsp.config("lua_ls", {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = {
-          'vim',
-        }
-      },
-    }
+require "mini.pick".setup {}
+require "blink.cmp".setup {
+  fuzzy = { implementation = "lua" },
+  keymap = { preset = 'super-tab' },
+  completion = {
+    documentation = { auto_show = true },
+    accept = { auto_brackets = { enabled = true }, },
+    menu = { auto_show = true, },
+    ghost_text = { enabled = true }, -- might change my mind later, reminds me of copilot
   },
-})
+}
+require "nvim-treesitter.configs".setup {
+  ensure_installed = { "c", "lua", "python", "typescript", "javascript", "rust", "zig", "tsx" },
+}
+require "treesitter-context".setup {
+  max_lines = 1,
+  trim_scope = "inner"
+}
+require "mason".setup {}
+vim.lsp.enable({ "lua_ls", "rust_analyzer", "pyright", "ts_ls", "clangd", "zls" })
 
-
--- Most important keymap ever
 vim.keymap.set("v", "<C-c>", "<Esc>")
-
+vim.keymap.set("n", "<C-f>", function() -- launch tmux-sessionizer from inside neovim
+  vim.fn.system({ "tmux", "popup", "-E", "~/.local/bin/tmux-sessionizer" })
+end, { silent = true, desc = "Launch tmux-sessionizer in popup" })
 vim.keymap.set("n", "<leader>fd", ":Pick files<CR>")
 vim.keymap.set("n", "<leader>fg", ":Pick grep_live<CR>")
 vim.keymap.set("n", "<leader>fp", ":Pick resume<CR>")
-
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")
-
-vim.keymap.set('n', '<M-k>', '<cmd>cprev<CR>')
-vim.keymap.set('n', '<M-j>', '<cmd>cnext<CR>')
-
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Yank line to clipboard" })
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selection to clipboard" })
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format by lsp" })
 
--- Paste without replacing paste with what you are highlighted over
-vim.keymap.set("n", "<leader>p", '"_dP')
-vim.keymap.set("n", "<C-p>", '"+p')
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(args)
+    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    local opts = { buffer = args.buf }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
-vim.api.nvim_create_autocmd("LspAttach",
-  { --  Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(ev)
-      vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc" -- Enable completion triggered by <c-x><c-o>
-
-      -- Buffer local mappings.
-      local opts = { buffer = ev.buf }
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-      vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-
-      vim.keymap.set("n", "<leader>f", function()
-        vim.lsp.buf.format({ async = true })
-      end, opts)
-
-      -- Open the diagnostic under the cursor in a float window
-      vim.keymap.set("n", "<leader>d", function()
-        vim.diagnostic.open_float({
-          border = "rounded",
-        })
-      end, opts)
-    end,
-  }
-)
+    vim.keymap.set("n", "<leader>d", function()
+      vim.diagnostic.open_float({
+        border = "rounded",
+      })
+    end, opts)
+  end,
+})

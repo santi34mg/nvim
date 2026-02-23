@@ -27,7 +27,6 @@ vim.pack.add({
     { src = "https://github.com/echasnovski/mini.pick" },
     { src = "https://github.com/MeanderingProgrammer/harpoon-core.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/folke/which-key.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
@@ -36,7 +35,7 @@ vim.pack.add({
     { src = "https://github.com/folke/trouble.nvim" },
 })
 
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme mintheme")
 vim.cmd("set completeopt+=noselect")
 vim.cmd(":hi statusline guibg=NONE")
 
@@ -52,6 +51,10 @@ require "blink.cmp".setup {
     },
 }
 require "nvim-treesitter.configs".setup {
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
     ensure_installed = { "c", "lua", "python", "typescript", "javascript", "rust", "zig", "tsx" },
 }
 require "treesitter-context".setup {
@@ -61,7 +64,7 @@ require "treesitter-context".setup {
 require "mason".setup {}
 require "trouble".setup {}
 
-vim.lsp.enable({ "lua_ls", "rust_analyzer", "pylsp", "ts_ls", "clangd", "zls" })
+vim.lsp.enable({ "lua_ls", "rust_analyzer", "pyright", "ts_ls", "clangd", "zls", "gopls" })
 
 vim.keymap.set("n", "<leader>ah", function()
     local dir  = vim.fn.expand("%:p:h") -- current file's directory
@@ -90,10 +93,7 @@ vim.keymap.set("n", "<M-l>", ":wincmd l<CR>")
 vim.keymap.set("n", "<M-s>", ":wincmd v<CR>") -- I like splitting vertically
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Yank line to clipboard" })
-vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selection to clipboard" })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format by lsp" })
-vim.keymap.set("n", "<leader>p", '"_dP')
 vim.keymap.set("n", "<leader>tr", ':Trouble diagnostics<CR>')
 vim.keymap.set("n", "<leader>ha", harpoon.add_file, { desc = "Harpoon: add current file" })
 vim.keymap.set("n", "<leader>hr", harpoon.rm_file, { desc = "Harpoon: remove current file" })

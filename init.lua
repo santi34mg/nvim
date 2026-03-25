@@ -32,10 +32,11 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/tpope/vim-fugitive" },
+    { src = "https://github.com/vague2k/vague.nvim" },
     { src = "https://github.com/folke/trouble.nvim" },
 })
 
-vim.cmd("colorscheme mintheme")
+vim.cmd("colorscheme vague")
 vim.cmd("set completeopt+=noselect")
 vim.cmd(":hi statusline guibg=NONE")
 
@@ -64,7 +65,17 @@ require "treesitter-context".setup {
 require "mason".setup {}
 require "trouble".setup {}
 
-vim.lsp.enable({ "lua_ls", "rust_analyzer", "pyright", "ts_ls", "clangd", "zls", "gopls" })
+-- fib support 
+vim.filetype.add({ extension = { fib = "fiber" } })
+vim.opt.runtimepath:append("/home/santisil/personal/code/fiber/editor/neovim")
+vim.lsp.config("fiber", {
+    cmd = { "fiber-lsp" },
+    filetypes = { "fiber" },
+    root_markers = { "fiber.toml" },
+})
+
+-- lsp
+vim.lsp.enable({ "lua_ls", "rust_analyzer", "pyright", "ts_ls", "clangd", "zls", "gopls", "fiber" })
 
 vim.keymap.set("n", "<leader>ah", function()
     local dir  = vim.fn.expand("%:p:h") -- current file's directory

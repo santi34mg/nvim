@@ -90,6 +90,7 @@ vim.keymap.set("n", "<leader>ah", function()
     end
 end, { desc = "Toggle between .c and .h" })
 vim.keymap.set("v", "<C-c>", "<Esc>") -- this one used to f me
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")
 vim.keymap.set("n", "<C-f>", function() -- launch tmux-sessionizer from inside neovim
     vim.fn.system({ "tmux", "popup", "-E", "~/.local/bin/tmux-sessionizer" })
 end, { silent = true, desc = "Launch tmux-sessionizer in popup" })

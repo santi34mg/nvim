@@ -1,0 +1,56 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "4e9edba1b1cef1585cc65e54287229e5d34e4df8",
+      "src": "https://github.com/Saghen/blink.cmp"
+    },
+    "esp32.nvim": {
+      "rev": "5b17ca919f509882cd4e089cf16cb5ccf6562c81",
+      "src": "https://github.com/Aietes/esp32.nvim"
+    },
+    "harpoon-core.nvim": {
+      "rev": "6d9acd1828a88b0d3112226c04894d2e6b95976f",
+      "src": "https://github.com/MeanderingProgrammer/harpoon-core.nvim"
+    },
+    "mason.nvim": {
+      "rev": "7dc4facca9702f95353d5a1f87daf23d78e31c2a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.pick": {
+      "rev": "82ec629ca108c7b96b8b9bb733d235b39e137690",
+      "src": "https://github.com/echasnovski/mini.pick"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba918343ebfd5565147a42a26580579482",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-treesitter-context": {
+      "rev": "dca8726fea2c14e1ce6adbaa76a04816fbfaff61",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
+    },
+    "opencode.nvim": {
+      "rev": "b3cdd746a5ca321b6884badefa0ba22c86c3d45e",
+      "src": "https://github.com/nickjvandyke/opencode.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "src": "https://github.com/folke/snacks.nvim"
+    },
+    "trouble.nvim": {
+      "rev": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3",
+      "src": "https://github.com/folke/trouble.nvim"
+    },
+    "vague.nvim": {
+      "rev": "087ff41d1b4d90e7b64e1c97860700fa6b7f0daf",
+      "src": "https://github.com/vague2k/vague.nvim"
+    },
+    "vim-fugitive": {
+      "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "which-key.nvim": {
+      "rev": "370ec46f710e058c9c1646273e6b225acf47cbed",
+      "src": "https://github.com/folke/which-key.nvim"
+    }
+  }
+}

@@ -28,7 +28,7 @@ vim.pack.add({
     { src = "https://github.com/MeanderingProgrammer/harpoon-core.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/folke/which-key.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
     { src = "https://github.com/Saghen/blink.cmp" },
     { src = "https://github.com/tpope/vim-fugitive" },
@@ -49,13 +49,12 @@ require "blink.cmp".setup {
         accept = { auto_brackets = { enabled = true }, },
     },
 }
-require "nvim-treesitter.configs".setup {
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-    ensure_installed = { "c", "lua", "python", "typescript", "javascript", "rust", "zig", "tsx" },
-}
+local ts_filetypes = { "c", "lua", "python", "typescript", "javascript", "rust", "zig", "tsx" }
+require "nvim-treesitter".install(ts_filetypes)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function() pcall(vim.treesitter.start) end,
+})
 require "treesitter-context".setup {
     max_lines = 1,
     trim_scope = "inner"

@@ -47,6 +47,7 @@ vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' }, { confirm = false
 vim.cmd("set completeopt+=noselect")
 vim.cmd(":hi statusline guibg=NONE")
 vim.cmd("colorscheme retrobox")
+vim.opt.clipboard = "unnamedplus"
 
 require('lualine').setup {
   options = {

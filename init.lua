@@ -37,6 +37,7 @@ vim.pack.add({
 
 vim.cmd("set completeopt+=noselect")
 vim.cmd(":hi statusline guibg=NONE")
+vim.cmd("colorscheme mintheme")
 
 local harpoon = require('harpoon-core')
 harpoon.setup {}
@@ -61,15 +62,6 @@ require "treesitter-context".setup {
 }
 require "mason".setup {}
 require "trouble".setup {}
-
--- fib support 
-vim.filetype.add({ extension = { fib = "fiber" } })
-vim.opt.runtimepath:append("/home/santisil/personal/code/fiber/editor/neovim")
-vim.lsp.config("fiber", {
-    cmd = { "fiber-lsp" },
-    filetypes = { "fiber" },
-    root_markers = { "fiber.toml" },
-})
 
 -- lsp
 vim.lsp.enable({ "lua_ls", "rust_analyzer", "ruff", "pyright", "ts_ls", "clangd", "zls", "gopls", "html" })

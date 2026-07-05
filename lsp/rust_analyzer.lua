@@ -59,7 +59,23 @@ local function default_sysroot_src()
     end
   end
 
-  return sysroot and vim.fs.joinpath(sysroot, 'lib/rustlib/src/rust/library') or nil
+  if not sysroot then
+    return nil
+  end
+
+  local rustup_style = vim.fs.joinpath(sysroot, 'lib/rustlib/src/rust/library')
+  if vim.uv.fs_stat(rustup_style) then
+    return rustup_style
+  end
+
+  -- Void Linux's rust-std package ships sources under rustc-src instead
+  -- of the rustup-style path above.
+  local void_style = vim.fs.joinpath(sysroot, 'lib/rustlib/rustc-src/rust/library')
+  if vim.uv.fs_stat(void_style) then
+    return void_style
+  end
+
+  return rustup_style
 end
 
 local function is_library(fname)
@@ -162,6 +178,17 @@ return {
     },
   },
   before_init = function(init_params, config)
+    config.settings = config.settings or {}
+    config.settings['rust-analyzer'] = config.settings['rust-analyzer'] or {}
+    local ra_settings = config.settings['rust-analyzer']
+    ra_settings.cargo = ra_settings.cargo or {}
+    if not ra_settings.cargo.sysrootSrc then
+      local sysroot_src = default_sysroot_src()
+      if sysroot_src then
+        ra_settings.cargo.sysrootSrc = sysroot_src
+      end
+    end
+
     -- See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
     if config.settings and config.settings['rust-analyzer'] then
       init_params.initializationOptions = config.settings['rust-analyzer']

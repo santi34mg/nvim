@@ -35,7 +35,12 @@ vim.pack.add({
     { src = "https://github.com/tpope/vim-fugitive" },
     { src = "https://github.com/folke/trouble.nvim" },
 })
-vim.pack.add({ 'https://github.com/nvim-lualine/lualine.nvim' }, { confirm = false })
+
+vim.pack.add({
+    'https://github.com/nvim-tree/nvim-web-devicons',
+    'https://github.com/nvim-lualine/lualine.nvim'
+})
+
 vim.pack.add({
   'https://github.com/folke/todo-comments.nvim', -- highlight TODO/INFO/WARN comments
 }, { confirm = false })
@@ -49,12 +54,37 @@ vim.cmd(":hi statusline guibg=NONE")
 vim.cmd("colorscheme retrobox")
 vim.opt.clipboard = "unnamedplus"
 
-require('lualine').setup {
-  options = {
-    section_separators = { left = '', right = '' },
-    component_separators = { left = '', right = '' },
-  },
-}
+local trouble = require("trouble")
+
+local symbols = trouble.statusline({
+    mode = "lsp_document_symbols",
+    groups = {},
+    title = false,
+    filter = { range = true },
+    format = "{kind_icon}{symbol.name:Normal}",
+    hl_group = "lualine_c_normal",
+})
+
+require("lualine").setup({
+    options = {
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "", right = "" },
+    },
+    sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = {
+            "filename",
+            {
+                symbols.get,
+                cond = symbols.has,
+            },
+        },
+        lualine_x = { "encoding", "filetype" },
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
+    },
+})
 
 require('todo-comments').setup()
 
@@ -122,18 +152,15 @@ require "blink.cmp".setup {
         accept = { auto_brackets = { enabled = true }, },
     },
 }
+
 local ts_filetypes = { "c", "lua", "python", "typescript", "javascript", "rust", "zig", "tsx" }
 require "nvim-treesitter".install(ts_filetypes)
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "*",
-    callback = function() pcall(vim.treesitter.start) end,
-})
+
 require "treesitter-context".setup {
     max_lines = 1,
     trim_scope = "inner"
 }
 require "mason".setup {}
-require "trouble".setup {}
 
 -- lsp
 vim.lsp.enable({ "lua_ls", "rust_analyzer", "ruff", "pyright", "ts_ls", "clangd", "zls", "gopls", "html" })

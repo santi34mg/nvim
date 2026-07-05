@@ -41,6 +41,10 @@
       "rev": "dca8726fea2c14e1ce6adbaa76a04816fbfaff61",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
+    "nvim-web-devicons": {
+      "rev": "dad71387de386a946b123079d0e53f23028f3abd",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
     "opencode.nvim": {
       "rev": "b3cdd746a5ca321b6884badefa0ba22c86c3d45e",
       "src": "https://github.com/nickjvandyke/opencode.nvim"
@@ -54,7 +58,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "trouble.nvim": {
-      "rev": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3",
+      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
     },
     "vague.nvim": {

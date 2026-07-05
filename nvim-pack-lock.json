@@ -8,9 +8,21 @@
       "rev": "5b17ca919f509882cd4e089cf16cb5ccf6562c81",
       "src": "https://github.com/Aietes/esp32.nvim"
     },
+    "friendly-snippets": {
+      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "gitsigns.nvim": {
+      "rev": "eb60cc7b94c46005237fd34170d76f3a089a90aa",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "harpoon-core.nvim": {
       "rev": "6d9acd1828a88b0d3112226c04894d2e6b95976f",
       "src": "https://github.com/MeanderingProgrammer/harpoon-core.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason.nvim": {
       "rev": "7dc4facca9702f95353d5a1f87daf23d78e31c2a",
@@ -36,6 +48,10 @@
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "todo-comments.nvim": {
+      "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
+      "src": "https://github.com/folke/todo-comments.nvim"
     },
     "trouble.nvim": {
       "rev": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3",

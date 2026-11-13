@@ -41,10 +41,6 @@ vim.pack.add({
     'https://github.com/nvim-lualine/lualine.nvim'
 })
 
-vim.pack.add({
-  'https://github.com/folke/todo-comments.nvim', -- highlight TODO/INFO/WARN comments
-}, { confirm = false })
-
 vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' }, { confirm = false })
 
 vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' }, { confirm = false })
@@ -86,7 +82,6 @@ require("lualine").setup({
     },
 })
 
-require('todo-comments').setup()
 
 require('gitsigns').setup {
   on_attach = function(bufnr)
@@ -163,6 +158,14 @@ vim.keymap.set("n", "<C-j>", function() harpoon.nav_file(1) end, { desc = "Harpo
 vim.keymap.set("n", "<C-k>", function() harpoon.nav_file(2) end, { desc = "Harpoon: nav to second file" })
 vim.keymap.set("n", "<C-l>", function() harpoon.nav_file(3) end, { desc = "Harpoon: nav to third file" })
 vim.keymap.set("n", "<C-;>", function() harpoon.nav_file(4) end, { desc = "Harpoon: nav to fourth file" })
+
+-- Make header files be C
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.h",
+  callback = function()
+    vim.bo.filetype = "c"
+  end,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),

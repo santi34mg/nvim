@@ -50,7 +50,7 @@ vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' }, { confirm = 
 vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' }, { confirm = false })
 
 vim.cmd("set completeopt+=noselect")
-vim.cmd(":hi statusline guibg=NONE")
+vim.opt.background = "dark"
 vim.cmd("colorscheme retrobox")
 vim.opt.clipboard = "unnamedplus"
 
@@ -67,6 +67,7 @@ local symbols = trouble.statusline({
 
 require("lualine").setup({
     options = {
+        theme = "gruvbox",
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
     },

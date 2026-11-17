@@ -41,10 +41,6 @@ vim.pack.add({
     'https://github.com/nvim-lualine/lualine.nvim'
 })
 
-vim.pack.add({
-  'https://github.com/folke/todo-comments.nvim', -- highlight TODO/INFO/WARN comments
-}, { confirm = false })
-
 vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' }, { confirm = false })
 
 vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' }, { confirm = false })
@@ -86,8 +82,6 @@ require("lualine").setup({
         lualine_z = { "location" },
     },
 })
-
-require('todo-comments').setup()
 
 require('gitsigns').setup {
   on_attach = function(bufnr)
